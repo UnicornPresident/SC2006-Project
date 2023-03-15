@@ -1,0 +1,23 @@
+import java.io.IOException;
+
+public class LocationController {
+    public LocationController() {
+    }
+
+    public static void main(String[] args) throws IOException {
+        LatLng latLng;
+        NewLocationInput locationinput= new NewLocationInput();
+        locationinput.input();
+        LocationApi locationapi= new LocationApi(locationinput.getAddress());
+        locationapi.urlconstructor();
+        latLng=locationapi.GetLatLng();
+        locationinput.setLatLng(latLng);
+        if(locationapi.GetLatLng().getLatitude()==404 && locationapi.GetLatLng().getLongitude()==404  ){
+            System.out.println("The Address does not exist!.");
+        }
+        else{
+            System.out.println(locationapi.GetLatLng().getLatitude());
+            System.out.println(locationapi.GetLatLng().getLongitude());
+        }
+    }
+}
