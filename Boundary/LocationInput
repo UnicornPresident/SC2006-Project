@@ -1,0 +1,48 @@
+import java.util.*;
+import java.io.IOException;
+
+public class LocationInput implements InputController{
+
+    private String address;
+    private LatLng latLng;
+
+    public LatLng getLatLng() {
+        return latLng;
+    }
+
+    public void setLatLng(LatLng latLng) {
+        this.latLng = latLng;
+    }
+
+    public LocationInput() {}
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(String address) {
+        this.address=address;
+    }
+
+
+    //Repeatedly asks for user input for postal code until the input is valid.
+    @Override
+    public void input() {
+        // TODO Auto-generated method stub
+        Scanner scan = new Scanner(System.in);
+        boolean validPostalcode=false;
+        while (!validPostalcode){
+            System.out.println("Please enter the Postal Code of your location.");
+            this.address=scan.next();
+            validPostalcode=validate();
+        }
+    }
+    //validate function to check that input is a 6-digit and no alphabets in the postal code
+    @Override
+    public boolean validate() {
+        int length=this.address.length();
+        if (length!=6) return false;
+        else if (this.address.matches("[a-zA-Z]+")) return false;
+        else return true;
+    }
+}
