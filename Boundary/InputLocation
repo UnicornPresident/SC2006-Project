@@ -1,9 +1,9 @@
 import java.util.*;
 import java.io.IOException;
 
-public class LocationInput implements InputController{
+public class InputLocation implements InputController{
 
-    private String address;
+    private String postalCode;
     private LatLng latLng;
 
     public LatLng getLatLng() {
@@ -14,14 +14,14 @@ public class LocationInput implements InputController{
         this.latLng = latLng;
     }
 
-    public LocationInput() {}
+    public InputLocationt() {}
 
-    public String getAddress() {
-        return this.address;
+    public String getpostalCode() {
+        return this.postalCode;
     }
 
-    public void setAddress(String address) {
-        this.address=address;
+    public void setpostalCode(String postalCode) {
+        this.postalCode=postalCode;
     }
 
 
@@ -33,16 +33,16 @@ public class LocationInput implements InputController{
         boolean validPostalcode=false;
         while (!validPostalcode){
             System.out.println("Please enter the Postal Code of your location.");
-            this.address=scan.next();
+            this.postalCode=scan.next();
             validPostalcode=validate();
         }
     }
     //validate function to check that input is a 6-digit and no alphabets in the postal code
     @Override
     public boolean validate() {
-        int length=this.address.length();
+        int length=this.postalCode.length();
         if (length!=6) return false;
-        else if (this.address.matches("[a-zA-Z]+")) return false;
+        else if (this.postalCode.matches("[a-zA-Z]+")) return false;
         else return true;
     }
 }
