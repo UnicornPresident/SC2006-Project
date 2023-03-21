@@ -1,7 +1,7 @@
-package carparkpkg;
 import java.util.Scanner;
 import java.text.ParseException;
 import java.time.LocalTime;
+
 
 
 public class InputTime implements InputController{
@@ -9,7 +9,6 @@ public class InputTime implements InputController{
 	private LocalTime end_time = null;
 	@Override
 	public void input() throws ParseException {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter start time in HH:mm format: ");
 		String sinput = sc.nextLine();
@@ -28,7 +27,7 @@ public class InputTime implements InputController{
 		}else {
 			//viewmap.displayResult();
 		}
-		
+		sc.close();
 	}
 	public LocalTime getStartTime() {
 		return start_time;
@@ -36,6 +35,5 @@ public class InputTime implements InputController{
 	public LocalTime getEndTime() {
 		return end_time;
 	}
-	
-
+	public boolean validate(){return true;}
 }

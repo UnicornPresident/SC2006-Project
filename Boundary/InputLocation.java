@@ -14,7 +14,7 @@ public class InputLocation implements InputController{
         this.latLng = latLng;
     }
 
-    public InputLocationt() {}
+    public InputLocation() {}
 
     public String getpostalCode() {
         return this.postalCode;

@@ -1,4 +1,3 @@
-package carparkpkg;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -53,7 +52,7 @@ public class InputDate implements InputController{
 		return end_date;
 	}
 
-	
-
+    @Override
+    public boolean validate(){return true;}
 
 }
