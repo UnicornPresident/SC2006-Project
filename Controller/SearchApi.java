@@ -37,7 +37,15 @@ public class SearchApi extends Controller{
             JSONArray recordsArray = resultsObject.getJSONArray("records");
             
             
-            
+                /*
+                 * String[]: 
+                 * [0] - Address
+                 * [1] - x-coordinate
+                 * [2] - y-coordinate
+                 * [3] - Carpark Number
+                 * [4] - Available No. of Lots
+                 * [5] - Total No. of Lots  
+                 */
             if (validate(response)){
                 for (int i=0; i<recordsArray.length(); ++i) {
                 JSONObject record = recordsArray.getJSONObject(i);

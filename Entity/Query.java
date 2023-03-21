@@ -1,51 +1,49 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Query {
     private String location;
-    private String startDate;
-    private String endDate;
-    private String startTime;
-    private String endTime;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     public Query() {
-        this.location = "";
-        this.startDate = "";
-        this.endDate = "";
-        this.startTime = "";
-        this.endTime = "";
     }
 
     public String getLocation() {
         return this.location;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return this.startDate;
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return this.endDate;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return this.startTime;
     }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return this.endTime;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
