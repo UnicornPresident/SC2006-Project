@@ -1,16 +1,13 @@
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.ResourceBundle;
-import java.util.*;
 
 public class LocationApi extends Controller {
     // Api_key from google map
-    static String API_KEY = "AIzaSyD4qpf0huSudBr0gTZEqWuHBf-_ooj6szI";
+    private String API_KEY = "AIzaSyD4qpf0huSudBr0gTZEqWuHBf-_ooj6szI";
     private String address;
     private String Url;
 
@@ -37,27 +34,16 @@ public class LocationApi extends Controller {
             }
             String response = responseBuilder.toString();
             if (validate(response)){
-                String[] parts = response.split(",");
-                String str1= findNumericChar(parts[16]);
-                String str2= findNumericChar(parts[17]);
-                double num1=Double.parseDouble(str1);
-                double num2=Double.parseDouble(str2);
-                return new LatLng(num1,num2);
+                JSONObject jsonResponse = new JSONObject(response);
+                JSONArray resultsArray = jsonResponse.getJSONArray("results");
+                JSONObject location = resultsArray.getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
+                double lat = location.getDouble("lat");
+                double lng = location.getDouble("lng");
+                return new LatLng(lat, lng);
+
             }
         }
         return new LatLng(404,404);
-    }
-
-
-    public String findNumericChar(String inputString){
-        String number = "-1";
-        Pattern pattern = Pattern.compile("\\d+(\\.\\d+)?"); // Match one or more digits, optionally followed by a decimal point and one or more digits
-        Matcher matcher = pattern.matcher(inputString);
-
-        if (matcher.find()) {
-             number = matcher.group();
-        }
-        return number;
     }
 
     public boolean validate(String response){

@@ -1,6 +1,5 @@
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -40,7 +39,7 @@ public class InputDate implements InputController{
         	time.input();
         }
        
-        
+        sc.close();
 	}
 	
 	// to get start and end dates 

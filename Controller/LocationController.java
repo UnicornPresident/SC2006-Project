@@ -1,6 +1,5 @@
 
 import java.io.IOException;
-import java.util.*;
 
 public class LocationController {
     public LocationController() {
@@ -18,16 +17,15 @@ public class LocationController {
             System.out.println("The Address does not exist!.");
         }
         else{
-            System.out.println(locationapi.GetLatLng().getLatitude());
-            System.out.println(locationapi.GetLatLng().getLongitude());
+            System.out.println("lat: " + latLng.getLatitude());
+            System.out.println("lng: " + latLng.getLongitude());
         }
-        InputAddress addressInput = new InputAddress();
-        addressInput.input();;
-        SearchApi searchApi = new SearchApi(addressInput.getAddress());
-        searchApi.urlconstructor();
-        ArrayList<String[]> searchResults = searchApi.getSearchResults();
-        AvailabilityApi availabilityApi = new AvailabilityApi(searchResults);
+        double maxDist = 5000; // in meters
+        AvailabilityApi availabilityApi = new AvailabilityApi();
         availabilityApi.getAvailability();
-        availabilityApi.display();
+        availabilityApi.getNearestCarparks(maxDist, latLng);
+        // mallApi.displayAllCarparks();
+        availabilityApi.sortByDistance();
+        availabilityApi.displayNearbyCarparks();
     }
 }
