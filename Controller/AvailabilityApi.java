@@ -159,6 +159,35 @@ public class AvailabilityApi extends Controller{
         this.nearbyCarparks = sortedJsonObject;
     }
 
+    public void sortByAvailability(){
+        JSONArray jsonArr = this.nearbyCarparks.getJSONArray("Carparks");
+        JSONArray sortedJsonArray = new JSONArray();
+
+        ArrayList<JSONObject> jsonValues = new ArrayList<JSONObject>();
+        for (int i = 0 ; i < jsonArr.length(); i++){
+            jsonValues.add(jsonArr.getJSONObject(i));
+        }
+        Collections.sort(jsonValues, new Comparator<JSONObject>() {
+            private static final String KEY_NAME = "Available Lots";
+
+            @Override
+            public int compare(JSONObject a, JSONObject b) {
+                int valA;
+                int valB;              
+                valA = (int) a.get(KEY_NAME);
+                valB = (int) b.get(KEY_NAME);
+                return (int) (valA - valB);
+            }
+        });
+
+        for (int i = 0; i < jsonArr.length(); i++){
+            sortedJsonArray.put(jsonValues.get(i));
+        }
+        JSONObject sortedJsonObject = new JSONObject();
+        sortedJsonObject.put("Carparks", sortedJsonArray);
+        this.nearbyCarparks = sortedJsonObject;
+    }
+
     public boolean validate(String response){
         return true;
     }

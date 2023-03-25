@@ -25,7 +25,8 @@ public class LocationController {
         availabilityApi.getAvailability();
         availabilityApi.getNearestCarparks(maxDist, latLng);
         // mallApi.displayAllCarparks();
-        availabilityApi.sortByDistance();
+        availabilityApi.sortByAvailability();
+        // availabilityApi.sortByDistance();
         availabilityApi.displayNearbyCarparks();
     }
 }

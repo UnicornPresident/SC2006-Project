@@ -4,5 +4,6 @@
         "Controller",
         "Boundary",
         "lib"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
