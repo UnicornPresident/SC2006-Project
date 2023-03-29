@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ems from './happy_woman.png';
+import ems from './rainbow.jpg';
 
 export class Instructions extends Component {
   render() {
