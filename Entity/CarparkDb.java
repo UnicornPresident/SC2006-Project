@@ -8,7 +8,6 @@ import java.io.File;
 
 public class CarparkDb {
     private ArrayList<Carpark> CarparkList;
-    private final static String DataBaseFilePath = "database.csv";
 
     public CarparkDb() {
         CarparkList = new ArrayList<Carpark>();
@@ -35,19 +34,16 @@ public class CarparkDb {
                 String restricted = carpark[4];
                 Carpark c = new Carpark(number, address, x_coord, y_coord, restricted);
                 CarparkList.add(c);
-                //writeToDb(CarparkList);
-                /* 
-                for(int i = 0; i < 11; i++) {
-                    System.out.print(carpark[i] + " ");
-                }
-                */
-                //System.out.println("");
             
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public ArrayList<Carpark> getCarparkList() {
+        return this.CarparkList;
     }
 
     
