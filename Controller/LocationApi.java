@@ -19,6 +19,10 @@ public class LocationApi extends Controller {
         this.Url ="https://maps.googleapis.com/maps/api/geocode/json?address=${"+ this.address + "}+&key=" +this.API_KEY;
     }
 
+    public void setAddress(String address){
+        this.address = address;
+    }
+
     public LatLng GetLatLng() throws IOException {
         HttpURLConnection conn = (HttpURLConnection) new URL(this.Url).openConnection();
         conn.setRequestMethod("GET");
@@ -54,7 +58,6 @@ public class LocationApi extends Controller {
         else return true;
     }
 
-    @Override
     public boolean validate() {
         return false;
     }

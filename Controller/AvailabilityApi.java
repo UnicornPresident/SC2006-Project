@@ -14,7 +14,7 @@ public class AvailabilityApi extends Controller{
     private JSONObject allCarparks;
     private JSONObject nearbyCarparks;
 
-    public AvailabilityApi(){
+    public AvailabilityApi(){ 
     }
 
     public String getUrl(){
@@ -62,6 +62,7 @@ public class AvailabilityApi extends Controller{
             }
             String response = responseBuilder.toString();
             JSONObject jsonResponse = new JSONObject(response);
+            // System.out.println(jsonResponse);
             JSONArray valueArray = jsonResponse.getJSONArray("value");
             JSONArray filteredArray = new JSONArray();
             if (validate(response)){
@@ -141,7 +142,6 @@ public class AvailabilityApi extends Controller{
         Collections.sort(jsonValues, new Comparator<JSONObject>() {
             private static final String KEY_NAME = "Distance From Location (in metres)";
 
-            @Override
             public int compare(JSONObject a, JSONObject b) {
                 double valA;
                 double valB;              
@@ -170,7 +170,6 @@ public class AvailabilityApi extends Controller{
         Collections.sort(jsonValues, new Comparator<JSONObject>() {
             private static final String KEY_NAME = "Available Lots";
 
-            @Override
             public int compare(JSONObject a, JSONObject b) {
                 int valA;
                 int valB;              
@@ -192,10 +191,10 @@ public class AvailabilityApi extends Controller{
         return true;
     }
 
-    @Override
-    public boolean validate(){
-        return false;
-    }
+    // @Override
+    // public boolean validate(){
+    //     return false;
+    // }
 
 
 

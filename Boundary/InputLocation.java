@@ -20,16 +20,21 @@ public class InputLocation implements InputController{
     }
 
     public void setpostalCode(String postalCode) {
-        this.postalCode=postalCode;
+        if (validatePostal(postalCode)){
+            this.postalCode = postalCode;
+        }
+        else{
+            postalCode = postalCode.replace(' ', '+');
+            this.postalCode = postalCode; 
+        }
     }
 
 
     //Repeatedly asks for user input for postal code until the input is valid.
-    @Override
     public void input() {
         // TODO Auto-generated method stub
         Scanner scan = new Scanner(System.in);
-        System.out.println("Please input your desired location:");
+        System.out.println("Please input your desired location/postal code:");
         String input = scan.nextLine();
         if (validatePostal(input)){
             this.postalCode = input;
@@ -38,7 +43,6 @@ public class InputLocation implements InputController{
             input = input.replace(' ', '+');
             this.postalCode = input; 
         }
-        scan.close();
     }
     //validate function to check that input is a 6-digit and no alphabets in the postal code
     public boolean validatePostal(String input) {
@@ -48,6 +52,5 @@ public class InputLocation implements InputController{
         else return true;
     }
 
-    @Override
     public boolean validate(){return true;}
 }
