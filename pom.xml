@@ -5,6 +5,32 @@
   <artifactId>carpark-app</artifactId>
   <version>1.0.0</version>
 
+  <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>SC2006-Project/Boundary</source>
+                                <source>SC2006-Project/Controller</source>
+                                <source>SC2006-Project/Entity</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
   <dependencies>
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -21,7 +47,7 @@
     <dependency>
         <groupId>de.jollyday</groupId>
         <artifactId>jollyday</artifactId>
-        <version>0.5.8</version>
+        <version>0.5.1</version>
     </dependency>
 
   </dependencies>
