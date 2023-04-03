@@ -67,7 +67,7 @@ public class AvailabilityApi extends Controller{
             JSONArray filteredArray = new JSONArray();
             if (validate(response)){
                 for (int i = 0; i<valueArray.length() ; i++){
-                    if (!valueArray.getJSONObject(i).getString("Agency").equals("URA")) // To filter out URA carparks
+                    if (!valueArray.getJSONObject(i).getString("Agency").equals("LTA")) // To filter out LTA carparks
                         { 
                             JSONObject filteredCarpark = new JSONObject();
                             filteredCarpark.put("Agency", valueArray.getJSONObject(i).getString("Agency")); 
