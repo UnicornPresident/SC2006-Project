@@ -47,6 +47,8 @@ public class CalendarDb {
                     
                 		for (int i = 0; i < holidaysArray.length(); i++) {
                     			JSONObject holidayObject = holidaysArray.getJSONObject(i);
+								if (holidayObject.getString("primary_type").equals("Observance"))
+									continue;
                     			String holidayName = holidayObject.getString("name");
                     			String holidayDateIsoStr = holidayObject.getJSONObject("date").getString("iso");
                     			String holidayDateStr = holidayDateIsoStr.substring(0, 10);

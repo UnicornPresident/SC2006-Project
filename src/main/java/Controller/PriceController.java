@@ -22,18 +22,11 @@ public class PriceController {
 
     }
 
-    public double getPrice(String carparkId, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time) throws ParseException {
+    public double getPrice(String carparkId, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time, ArrayList<String> dateTypes) throws ParseException {
         Scanner sc = new Scanner(System.in);
         String start_date_input = "", end_date_input = "";
         String start_time_input = "", end_time_input = "";
         Boolean restricted = false;
-
-
-        DateController dc = new DateController(start_date, end_date);
-        
-        //Get date types
-        // ArrayList<String> dateTypes = dc.getDayTypes();
-        // System.out.println(dateTypes);
 
         //Initialising time integers
         start_time_input = start_time.toString();

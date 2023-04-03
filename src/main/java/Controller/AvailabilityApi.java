@@ -94,6 +94,12 @@ public class AvailabilityApi extends Controller{
             end_time = timeInput.getEndTime();
             // System.out.println("End time: " + end_time);
 
+            DateController dc = new DateController(start_date, end_date);
+        
+            //Get date types
+            ArrayList<String> dateTypes = dc.getDayTypes();
+            System.out.println(dateTypes);
+
             if (validate(response)){
                 for (int i = 0; i<valueArray.length() ; i++){
                     if (!valueArray.getJSONObject(i).getString("Agency").equals("LTA")) // To filter out LTA carparks
@@ -105,7 +111,7 @@ public class AvailabilityApi extends Controller{
                             filteredCarpark.put("Available Lots", valueArray.getJSONObject(i).getInt("AvailableLots")); 
                             filteredCarpark.put("Latitude", valueArray.getJSONObject(i).getString("Location").split(" ")[0]); 
                             filteredCarpark.put("Longitude", valueArray.getJSONObject(i).getString("Location").split(" ")[1]); 
-                            filteredCarpark.put("Price", priceController.getPrice(valueArray.getJSONObject(i).getString("CarParkID"), start_date, end_date, start_time, end_time));
+                            filteredCarpark.put("Price", priceController.getPrice(valueArray.getJSONObject(i).getString("CarParkID"), start_date, end_date, start_time, end_time, dateTypes));
                             filteredArray.put(filteredCarpark);
                         }
                 }
