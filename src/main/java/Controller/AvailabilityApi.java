@@ -1,5 +1,6 @@
 package Controller;
 import Entity.*;
+import Boundary.*;
 import org.json.JSONObject;
 import java.lang.Math;
 import org.json.JSONArray;
@@ -8,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.text.ParseException;
+import java.time.*;
 import java.util.*;
 
 public class AvailabilityApi extends Controller{
@@ -54,6 +56,11 @@ public class AvailabilityApi extends Controller{
         conn.setRequestProperty("AccountKey", this.ApiKey);
         conn.setRequestProperty("accept", "application/json");
         conn.connect();
+
+        LocalDate start_date = null;
+        LocalDate end_date = null;
+        LocalTime start_time = null;
+        LocalTime end_time = null;
         
         if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
             InputStream is = conn.getInputStream();
@@ -69,7 +76,24 @@ public class AvailabilityApi extends Controller{
             JSONArray valueArray = jsonResponse.getJSONArray("value");
             JSONArray filteredArray = new JSONArray();
             PriceController priceController = new PriceController();
-            double price = priceController.getPrice();
+            
+            //Get date inputs
+            
+            InputDate dateInput = new InputDate();
+            dateInput.input();
+            start_date = dateInput.getStartDate();
+            // System.out.println("Start date: " + start_date);
+            end_date = dateInput.getEndDate();
+            // System.out.println("End date: " + end_date);
+
+            InputTime timeInput = new InputTime();
+            timeInput.input(start_date, end_date);
+            start_time = timeInput.getStartTime();
+            // System.out.println("Start time: " + start_time);
+
+            end_time = timeInput.getEndTime();
+            // System.out.println("End time: " + end_time);
+
             if (validate(response)){
                 for (int i = 0; i<valueArray.length() ; i++){
                     if (!valueArray.getJSONObject(i).getString("Agency").equals("LTA")) // To filter out LTA carparks
@@ -81,7 +105,7 @@ public class AvailabilityApi extends Controller{
                             filteredCarpark.put("Available Lots", valueArray.getJSONObject(i).getInt("AvailableLots")); 
                             filteredCarpark.put("Latitude", valueArray.getJSONObject(i).getString("Location").split(" ")[0]); 
                             filteredCarpark.put("Longitude", valueArray.getJSONObject(i).getString("Location").split(" ")[1]); 
-                            filteredCarpark.put("Price", price);
+                            filteredCarpark.put("Price", priceController.getPrice(valueArray.getJSONObject(i).getString("CarParkID"), start_date, end_date, start_time, end_time));
                             filteredArray.put(filteredCarpark);
                         }
                 }
@@ -124,13 +148,10 @@ public class AvailabilityApi extends Controller{
             double lng1 = Double.parseDouble(carpark.getString("Longitude"));
             double lng2 = latLng.getLongitude();
 
-            // System.out.println(lat1 +" "+ lat2 +" "+ lng1 +" "+ lng2);
             double dist = distance(lat1, lat2, lng1, lng2, 0, 0);
-            // System.out.println("dist = " + dist);
             if (dist < maxDist){
                 carpark.put("Distance From Location (in metres)", dist);
                 nearbyCarparksArray.put(carpark);
-                // System.out.println(dist);
             }
         }
         nearbyCarparksoObject.put("Carparks", nearbyCarparksArray);
@@ -181,6 +202,34 @@ public class AvailabilityApi extends Controller{
                 int valB;              
                 valA = (Integer) a.get(KEY_NAME);
                 valB = (Integer) b.get(KEY_NAME);
+                return (int) (valA - valB);
+            }
+        });
+
+        for (int i = 0; i < jsonArr.length(); i++){
+            sortedJsonArray.put(jsonValues.get(i));
+        }
+        JSONObject sortedJsonObject = new JSONObject();
+        sortedJsonObject.put("Carparks", sortedJsonArray);
+        this.nearbyCarparks = sortedJsonObject;
+    }
+
+    public void sortByPrice(){
+        JSONArray jsonArr = this.nearbyCarparks.getJSONArray("Carparks");
+        JSONArray sortedJsonArray = new JSONArray();
+
+        ArrayList<JSONObject> jsonValues = new ArrayList<JSONObject>();
+        for (int i = 0 ; i < jsonArr.length(); i++){
+            jsonValues.add(jsonArr.getJSONObject(i));
+        }
+        Collections.sort(jsonValues, new Comparator<JSONObject>() {
+            private static final String KEY_NAME = "Price";
+
+            public int compare(JSONObject a, JSONObject b) {
+                double valA;
+                double valB;              
+                valA = (Double) a.get(KEY_NAME);
+                valB = (Double) b.get(KEY_NAME);
                 return (int) (valA - valB);
             }
         });

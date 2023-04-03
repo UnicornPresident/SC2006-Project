@@ -49,23 +49,15 @@ public class LocationController {
             }
         }
         
-        // while (maxDist == 0){
-        //     if (sc.hasNext()){
-        //         maxDist = sc.nextDouble();
-        //         break;
-        //     }
-        //     else
-        //         System.out.println("Please re-input a valid distance:");
-        // }
         AvailabilityApi availabilityApi = new AvailabilityApi();
         availabilityApi.getAvailability();
         availabilityApi.getNearestCarparks(maxDist, latLng);
-        System.out.println("Please choose sortByDistance-(0) or sortByAvailability-(1):");
+        System.out.println("Please choose sortByDistance-(0), sortByAvailability-(1) or sortByPrice-(2):");
         int input = 20;
-        while (input != 1 && input != 0){
+        while (input != 1 && input != 0 && input != 2){
             if (sc.hasNextInt()){
                 input = sc.nextInt();
-                if (input == 0 || input == 1){
+                if (input == 0 || input == 1 || input == 2){
                     break;
                 }
                 else{
@@ -77,11 +69,17 @@ public class LocationController {
                 sc.next();
             }
         }
-        if (input == 1){
-            availabilityApi.sortByDistance();
+        switch(input){
+            case(0):
+                availabilityApi.sortByDistance();
+                break;
+            case(1):
+                availabilityApi.sortByAvailability();
+                break;
+            case(2):
+                availabilityApi.sortByPrice();
+                break;
         }
-        else
-            availabilityApi.sortByAvailability();
 
         availabilityApi.displayNearbyCarparks();
     }

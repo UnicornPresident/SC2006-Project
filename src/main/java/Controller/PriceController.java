@@ -8,6 +8,8 @@ import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition;
 import java.util.*;
 import java.time.*;
 import java.lang.*;
+import java.math.*;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,69 +22,21 @@ public class PriceController {
 
     }
 
-    public double getPrice(String carparkId) throws ParseException {
+    public double getPrice(String carparkId, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time) throws ParseException {
         Scanner sc = new Scanner(System.in);
-        DateTimeFormatter Dateformatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter Timeformatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalDate start_date = null;
-        LocalDate end_date = null;
-        LocalTime start_time = null;
-        LocalTime end_time = null;
         String start_date_input = "", end_date_input = "";
         String start_time_input = "", end_time_input = "";
         Boolean restricted = false;
 
-        //Get date inputs
-        
-        InputDate dateInput = new InputDate();
-        dateInput.input();
-        start_date = dateInput.getStartDate();
-        // System.out.println("Start date: " + start_date);
-        end_date = dateInput.getEndDate();
-        // System.out.println("End date: " + end_date);
-
-        InputTime timeInput = new InputTime();
-        timeInput.input(start_date, end_date);
-        start_time = timeInput.getStartTime();
-        // System.out.println("Start time: " + start_time);
-
-        end_time = timeInput.getEndTime();
-        // System.out.println("End time: " + end_time);
 
         DateController dc = new DateController(start_date, end_date);
-        // while(!dc.validate()) {
-        //     dateInput.input();
-        //     start_date = dateInput.getStartDate();
-        //     dc.setStartDate(start_date);
-        //     end_date = dateInput.getEndDate();
-        //     dc.setEndDate(end_date);
-
-        //     // System.out.println("Start date (dd/MM/yyyy): ");
-        //     // start_date_input = sc.nextLine();
-        //     // dc.setStartDate(LocalDate.parse(start_date_input, Dateformatter));
-        //     // System.out.println("End date (dd/MM/yyyy): ");
-        //     // end_date_input = sc.nextLine();
-        //     // dc.setEndDate(LocalDate.parse(end_date_input, Dateformatter));
-        // }
-
-        // //Get time inputs
-        // TimeController tc = new TimeController();
-        // InputTime timeInput = new InputTime();
-        // while(!tc.validate()) {
-        //     timeInput.input();
-        //     start_time = timeInput.getStartTime();
-        //     tc.setStartTime(start_time);
-        //     System.out.println(tc.getStartTime());
-        //     end_time = timeInput.getEndTime();
-        //     tc.setEndTime(end_time);
-        //     System.out.println(tc.getEndTime());
-        // }
         
         //Get date types
         // ArrayList<String> dateTypes = dc.getDayTypes();
         // System.out.println(dateTypes);
-        start_time_input = start_time.toString();
+
         //Initialising time integers
+        start_time_input = start_time.toString();
         char start_hour_1 = start_time_input.charAt(0);
         int start_hour_1_int = start_hour_1;
         start_hour_1_int -= 48;
@@ -116,13 +70,15 @@ public class PriceController {
         String line = " ";
         String splitBy = ",";
         try {
-            BufferedReader br = new BufferedReader(new FileReader("hdb-carpark-information.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("resources/hdb-carpark-information.csv"));
             while((line = br.readLine()) != null) {
-                String[] carpark = line.split(splitBy);
+                String[] carpark = br.readLine().split(splitBy);
+                if (carpark.length == 0)
+                    break;
                 String number = carpark[0];
-                String address = carpark[1];
-                String x_coord = carpark[2];
-                String y_coord = carpark[3];
+                // String address = carpark[1];
+                // String x_coord = carpark[2];
+                // String y_coord = carpark[3];
                 String restrictedYN = carpark[4];
                 String Y = "Y";
                 if(number.equals(carparkId) && restrictedYN.equals(Y)) {
@@ -208,7 +164,10 @@ public class PriceController {
     //Get price
     double unrestricted_price = unrestricted_rate * unrestricted_minutes_parked;
     double restricted_price = restricted_rate * restricted_minutes_parked;
-
-    return unrestricted_price + restricted_price;
+    double num = unrestricted_price + restricted_price;
+    BigDecimal bd = new BigDecimal(num).setScale(2, RoundingMode.HALF_UP);  
+    double sum = bd.doubleValue();  
+    
+    return sum;
     }
 }

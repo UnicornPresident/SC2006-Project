@@ -19,29 +19,40 @@ public class InputDate implements InputController{
 		
         Scanner sc = new Scanner(System.in);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Boolean pass = false;
+        while (pass == false){
+            try {
+            System.out.println("Enter start date (dd/mm/yyyy) (e.g. 12/04/2023):");
+            String cinput1 = sc.nextLine();
+            start_date = LocalDate.parse(cinput1, formatter);
+            pass = true;
+            } catch (Exception e){
+                System.out.println("Please enter a valid start date (dd/mm/yyyy) (e.g. 12/04/2023)");
+            }
+        }
+        pass = false;
+        while (pass == false){
+            try {
+                System.out.println("Enter end date (dd/mm/yyyy) (e.g. 12/04/2023):");
+                String cinput2 = sc.nextLine();
+                end_date = LocalDate.parse(cinput2, formatter);
+                pass = true;
+                } catch (Exception e){
+                    System.out.println("Please enter a valid end date (dd/mm/yyyy) (e.g. 12/04/2023)");
+                }
+        }
+
         
-        System.out.println("Enter start date (dd/mm/yyyy):");
-        String cinput1 = sc.nextLine();
-        start_date = LocalDate.parse(cinput1, formatter);
-      
-        System.out.println(start_date); //checking
-        
-        System.out.println("Enter end date (dd/mm/yyyy):");
-        String cinput2 = sc.nextLine();
-        end_date = LocalDate.parse(cinput2, formatter);
-        
-        System.out.println(end_date); //checking
         
         DateController dc = new DateController(start_date, end_date);
         if (dc.validate() == false) {
         	System.out.println("Invalid dates, please enter valid start and end dates in the correct format");
         	input();
         }else {
-        	// InputTime time = new InputTime();
-        	// time.input(start_date, end_date);
+        	
         }
        
-        // sc.close();
+        
 	}
 	
 	// to get start and end dates 
