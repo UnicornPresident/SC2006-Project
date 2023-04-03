@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Calendar {
+public class CalendarDb {
 	String apiKey = "820d182364437e8a58702c485705fd3417ea49f2";
     	String country = "SG";
     	String year = "2023";
