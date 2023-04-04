@@ -52,7 +52,9 @@ public class LocationController {
         AvailabilityApi availabilityApi = new AvailabilityApi();
         availabilityApi.getAvailability();
         availabilityApi.getNearestCarparks(maxDist, latLng);
-        System.out.println("Please choose sortByDistance-(0), sortByAvailability-(1) or sortByPrice-(2):");
+        
+        /*
+         System.out.println("Please choose sortByDistance-(0), sortByAvailability-(1) or sortByPrice-(2):");
         int input = 20;
         while (input != 1 && input != 0 && input != 2){
             if (sc.hasNextInt()){
@@ -82,5 +84,44 @@ public class LocationController {
         }
 
         availabilityApi.displayNearbyCarparks();
+         */
+         do {
+            System.out.println(
+                    "Please choose sortByDistance-(0), sortByAvailability-(1) or sortByPrice-(2): CarparkDetails-(3) Exit(4)");
+            input = sc.nextInt();
+            switch (input) {
+                case (0):
+                    System.out.println("Sort by Distance");
+                    availabilityApi.sortByDistance();
+                    availabilityApi.displayNearbyCarparks();
+                    break;
+                case (1):
+                    System.out.println("Sort by Availability");
+                    availabilityApi.sortByAvailability();
+                    availabilityApi.displayNearbyCarparks();
+                    break;
+                case (2):
+                    System.out.println("Sort by Price");
+                    availabilityApi.sortByPrice();
+                    availabilityApi.displayNearbyCarparks();
+                    break;
+                case (3): {
+                    System.out.println("Carpark Details");
+                    availabilityApi.displayNearbyCarparks();
+                    System.out.println("Please choose a carpark: ");
+                    int choice = 1;
+                    while (sc.hasNextInt()) {
+                        try {
+                            choice = sc.nextInt();
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Please choose a valid carpark index:");
+                        }
+                    }
+                    availabilityApi.chooseCarpark(choice);
+                    break;
+                }
+            }
+        } while (input != 4);
     }
 }
