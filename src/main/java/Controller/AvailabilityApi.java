@@ -41,14 +41,23 @@ public class AvailabilityApi extends Controller{
         }
     }
 
-    public void displayNearbyCarparks(){
+    public void displayNearbyCarparks() {
         JSONArray array = this.nearbyCarparks.getJSONArray("Carparks");
-        for (int i = 0 ; i<array.length() ; i++) {
+        for (int i = 0; i < array.length(); i++) {
+            System.out.print("Carpark " + (i + 1) + ": ");
             System.out.println(array.getJSONObject(i));
         }
     }
-
-
+    
+    public void chooseCarpark(int choice) {
+        JSONArray array = this.nearbyCarparks.getJSONArray("Carparks");
+        for (int i = 0; i < array.length(); i++) {
+            if (i == (choice - 1)) {
+                System.out.println("Chosen Carpark:");
+                System.out.println(array.getJSONObject(i));
+            }
+        }
+    }
 
     public void getAvailability() throws IOException, ParseException{
         HttpURLConnection conn = (HttpURLConnection) new URL (this.Url).openConnection();
