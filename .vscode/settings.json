@@ -1,9 +1,0 @@
-{
-    "java.project.sourcePaths": [
-        "Entity",
-        "Controller",
-        "Boundary",
-        "lib"
-    ],
-    "java.configuration.updateBuildConfiguration": "interactive"
-}
