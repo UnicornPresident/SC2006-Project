@@ -1,7 +1,6 @@
-# My Todo
+# Carpark Finder
 
-This project can be used as a starting point to create your own Vaadin application with Spring Boot.
-It contains all the necessary configuration and some placeholder files to get you started.
+This project aims to facilitate better planning for individuals in Singapore, who intend to drive their personal vehicle to a location that they are not as familiar with. Carpark Finder will allow users to input a start and end date, start and end time, desired destination and maximum distance to search for nearby carparks within the given radius.
 
 ## Running the application
 
