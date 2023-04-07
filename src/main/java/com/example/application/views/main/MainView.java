@@ -71,9 +71,9 @@ public class MainView extends VerticalLayout {
 
         // Initialize the date and time pickers
         startDatePicker = new DatePicker("Start date", LocalDate.now());
-        endDatePicker = new DatePicker("End date", LocalDate.now().plusDays(1));
+        endDatePicker = new DatePicker("End date", LocalDate.now());
         startTimePicker = new TimePicker("Start time", LocalTime.now());
-        endTimePicker = new TimePicker("End time", LocalTime.now().plusHours(1));
+        endTimePicker = new TimePicker("End time", LocalTime.now());
         NumberField doubleField = new NumberField("Enter max dist (in metres)");
 
         // Set the step size of the time pickers to 1 minute

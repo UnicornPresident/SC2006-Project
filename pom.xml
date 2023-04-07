@@ -115,9 +115,10 @@
                 </goals>
                 <configuration>
                 <sources>
-                <source>SC2006-Project/Boundary</source>
-                <source>SC2006-Project/Controller</source>
-                <source>SC2006-Project/Entity</source>
+                    <source>SC2006-Project/Boundary</source>
+                    <source>SC2006-Project/Controller</source>
+                    <source>SC2006-Project/Entity</source>
+                    <source>SC2006-Project/src/main/java/resources</source>
                 </sources>
                 </configuration>
                 </execution>
